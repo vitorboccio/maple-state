@@ -16,23 +16,41 @@ export function maple<MapleType>(
   let value: MapleType = typeof initialValue === "function" ? (null as MapleType) : initialValue
   
   const subscribers = new Set<(newValue: MapleType) => void>()
+  const subscribed = new Set<Maple<any>>()
 
+  function get<Target>(maple: Maple<Target>){
+    let currentValue = maple.get()
+
+    if (!subscribed.has(maple)) {
+      subscribed.add(maple)
+      maple.subscribe((newValue) => {
+        if (currentValue === newValue) return
+        currentValue = newValue
+        computeValue()
+      })
+    }
+    return currentValue
+  }
+  
+  async function computeValue() {
+    const newValue = typeof initialValue === "function" ? (initialValue as MapleGetter<MapleType>)(get) : value
+    value = (null as MapleType)
+    value = await newValue
+    subscribers.forEach((callback) => callback(value))
+  }
+
+  computeValue()
+  
   return {
-    get() {
-      return value
-    },
-    set(newValue) {
+    get: () => value,
+    set: (newValue) => {
       value = newValue
-      subscribers.forEach((callback) => callback(value))
+      computeValue()
     },
-    subscribe(callback) {
+    subscribe: (callback) => {
       subscribers.add(callback)
-      return () => {
-        subscribers.delete(callback)
-      }
+      return () => subscribers.delete(callback)
     },
-    _subscribers() {
-      return subscribers.size
-    },
+    _subscribers: () => subscribers.size,
   }
 }
