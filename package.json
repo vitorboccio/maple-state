@@ -1,0 +1,30 @@
+{
+  "name": "maple-state",
+  "version": "0.0.1",
+  "description": "Maple state is a super super lightweight react state management library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitorboccio/maple-state.git"
+  },
+  "keywords": [
+    "maple",
+    "state",
+    "management",
+    "react",
+    "typescript"
+  ],
+  "author": "Vitor Boccio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitorboccio/maple-state/issues"
+  },
+  "homepage": "https://github.com/vitorboccio/maple-state#readme",
+  "devDependencies": {
+    "typescript": "^5.0.2"
+  }
+}
