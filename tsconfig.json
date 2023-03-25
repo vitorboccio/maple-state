@@ -14,7 +14,10 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "plugins": [
+      { "name": "typescript-tslint-plugin"}
+    ]
   },
   "include": ["src"],
   "exclude": ["node_modules", "lib"]
