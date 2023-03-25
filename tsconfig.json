@@ -19,6 +19,6 @@
       { "name": "typescript-tslint-plugin"}
     ]
   },
-  "include": ["src"],
+  "include": ["src", "index.ts"],
   "exclude": ["node_modules", "lib"]
 }

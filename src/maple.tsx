@@ -1,5 +1,5 @@
-
-type Maple<MapleType> = {
+import { useSyncExternalStore } from 'react'
+type Maple<MapleType> = { 
   get: () => MapleType
   set: (newValue: MapleType) => void
   subscribe: (callback: (newValue: MapleType) => void) => () => void
@@ -53,4 +53,12 @@ export function maple<MapleType>(
     },
     _subscribers: () => subscribers.size,
   }
+}
+
+export function useAtom<MapleType>(atom: Maple<MapleType>) {
+  return [useSyncExternalStore(atom.subscribe, atom.get), atom.set];
+}
+
+export function useAtomValue<MapleType>(atom: Maple<MapleType>) {
+  return useSyncExternalStore(atom.subscribe, atom.get);
 }
