@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react'
+
 type Neat<NeatType> = { 
   get: () => NeatType
   set: (newValue: NeatType) => void
@@ -10,7 +11,7 @@ type NeatGetter<NeatType> = (
   get: <Target>(m: Neat<Target>) => Target,
 ) => NeatType
 
-export function Neat<NeatType>(
+export function neat<NeatType>(
   initialValue: NeatType | NeatGetter<NeatType>,
 ) : Neat<NeatType> {
   let value: NeatType = typeof initialValue === "function" ? (null as NeatType) : initialValue
